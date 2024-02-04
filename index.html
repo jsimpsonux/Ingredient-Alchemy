@@ -22,13 +22,21 @@
     <!-- Content goes here -->
 
     <div class="container-fluid">
-        <div class="col">
+        <div class="row row-cols-2">
             <div class="flex-shrink-0 p-3 ms-2 bg-white row align-items-center" style="width: 280px;">
                 <div class="col">
 
                     <!--This is the searchbar-->
 
-                    <div class="input-group">
+                    <div class="d-flex pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                        <span class="fs-5 fw-semibold">Select Ingredients</span>
+                        <button type="submit" class="btn btn-primary ms-3">
+                            <span class=reload>&#x21bb;</span>
+                            <!-- <i class="fa fa-refresh" aria-hidden="true"></i> -->
+                        </button>
+                    </div>
+                    
+                    <div class="input-group my-3">
                         <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                             aria-describedby="search-addon" />
                         <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>+</button>
@@ -36,10 +44,20 @@
 
 
                     <div class="d-flex pb-3 mb-3 link-dark text-decoration-none border-bottom">
-                        <span class="fs-5 fw-semibold">Exclude</span>
+                        <span class="fs-5 mt-3 fw-semibold">Exclude</span>
+                    </div>
+
+                    <div class="input-group my-3">
+                        <input type="search" class="form-control rounded" placeholder="Exclude Ingredients" aria-label="Search"
+                            aria-describedby="search-addon" />
+                        <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>+</button>
                     </div>
 
                     <!--These are the checkboxes-->
+
+                    <div class="d-flex pb-3 mb-3 link-dark text-decoration-none border-bottom">
+                        <span class="fs-5 mt-3 fw-semibold">Additional Exclusion</span>
+                    </div>
                     <ul class="list-unstyled ps-0">
                         <li class="mb-1">
                             <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
@@ -124,8 +142,7 @@
             </div>
         </div>
         <!-- Recipe Card -->
-        <div class="col float-right">
-            <div class="col-md-6 float-right">
+        <div class="col">
                 <div class="recipe-card card text-center">
                     <div class="card-header">
                         Recipe Information
@@ -137,7 +154,6 @@
                         <ul class="list-unstyled" id="missingIngredients"></ul>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 
