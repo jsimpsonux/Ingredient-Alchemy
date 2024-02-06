@@ -1,77 +1,173 @@
-console.log("hello world!")
+$(document).ready(function() {
+
+
+//apiKey 1 = 4fcf78db28eb4c6cbaaced6e99ff8ab6
+//apiKey 2 = c9db4df7f4d4478c9b712d2b7950c4bc
+//apiKey 3 = c0abc7498fa042c0b538fd2e57aecd2c
+//apiKey 4 = 99acb6358dc34668b97f970d4ff5ce65
+//apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
 
 const apiKey = '4fcf78db28eb4c6cbaaced6e99ff8ab6'
-const recipeUrl = 'https://www.bbcgoodfood.com/recipes/poached-eggs-broccoli-tomatoes-wholemeal-flatbread'
-const ingredientsList = ['bacon', 'egg']
-const ingredientsToReplace = 'sugar'
 
+const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
+const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
+let allRecipesArray = []
+let recipeIdsArray = []
 
-// Function to search with a recipe and it will tell you if it good for you, with exclusions etc.
-const recipeSearch = `https://api.spoonacular.com/recipes/extract?url=${recipeUrl}&apiKey=${apiKey}`
+// Click events for search inputs and clear
 
-fetch(recipeSearch)
-.then((response) => {
-    return response.json();
+for (let i=0; i < ingredientsList.length; i++) {
+   var storedIngredient =  $('<p>').text(ingredientsList[i])
+   var storedIngredients = $('#ingredient-select').append(storedIngredient);
+
+}
+
+function emptyData () {
+    $('#ingredient-exclude').empty()
+    $('#ingredient-select').empty()
+    ingredientsList.length = 0;
+    excludeIngredients.length = 0;
+    localStorage.clear()
+}
+
+$('#select-button').on("click", function(event) {
+    event.preventDefault();
+    console.log("Hello World!")
+    var ingredientText = $('#select-ingredient').val()
+    var ingredientList = $('<p>').text(ingredientText);
+$('#ingredient-select').append(ingredientList)
+ingredientsList.push(ingredientText)
+
+localStorage.setItem("Ingredients", JSON.stringify(ingredientsList))
+console.log(ingredientsList)
 })
-.then((data) => {
-    console.log(data);
+
+$('#exclude-button').on("click", function(event) {
+    event.preventDefault();
+    console.log("Hello World!")
+    var excludeIngredientText = $('#exclude-ingredients').val()
+    var exclusionsList = $('<p>').text(excludeIngredientText);
+    $('#ingredient-exclude').append(exclusionsList);
+    excludeIngredients.push(excludeIngredientText);
+    localStorage.setItem("Excluded Ingredients", JSON.stringify(excludeIngredients))
+    console.log(excludeIngredients)
 })
-.catch((error) => {
-    console.error('Error:', error);
-});
 
-// search an ingredients list and it will return recipes which contain them. ALSO RETURNS MISSING INGREDIENTS FOR A SHOPPING LIST.
 
-const recipeFetch = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsList}&apiKey=${apiKey}`
-
-fetch(recipeFetch)
-.then((response) => {
-    return response.json();
+$('#empty-selections').on("click", function(event) {
+event.preventDefault();
+console.log("Hello worlds!")
+emptyData()
 })
-.then((data) => {
-    console.log(data);
-   
+
+$('input[type=radio][name=options]').change(function() {
+    var cuisine = $(this).text()
+console.log(cuisine)
 })
-.catch((error) => {
-    console.error('Error:', error);
-});
 
-// This one takes an ingredient and offers replacements
+$('#submit-button').on("click", function (event) {
+    event.preventDefault();
+    console.log("on click test")
+    complexSearch()
+    emptyData()
+    
 
-const replacementsFetch = `https://api.spoonacular.com/food/ingredients/substitutes?ingredientName=${ingredientsToReplace}&apiKey=${apiKey}`
-
-fetch(replacementsFetch)
-.then((response) => {
-    return response.json();
 })
-.then((data) => {
-    console.log(data);
-   
-})
-.catch((error) => {
-    console.error('Error:', error);
-});
 
 
-// Example of a very complex search query to see what it can handle.
 
-const userQuery = 'recipes with blueberries'
-const cuisine = 'British'
-const diet = 'vegetarian'
-const includeIngredients = ['sugar','cream']
-const excludeIngredients = ['nuts']
-const intolerances = 'gluten'
+// Complex Search function. This returns Recipe IDs and then passes them to the Recipe ID API
 
-const complexSearch = `https://api.spoonacular.com/recipes/complexSearch?query=${userQuery}&cuisine=${cuisine}&diet=${diet}&includeIngredients=${includeIngredients}&excludeIngredients=${excludeIngredients}&intolerances=${intolerances}&apiKey=${apiKey}`
+function complexSearch (ingredient) {
+
+const userQuery = ''
+const cuisine = ''
+const diet = ''
+const intolerances = ''
+
+const complexSearch = `https://api.spoonacular.com/recipes/complexSearch?query=${userQuery}&cuisine=${cuisine}&diet=${diet}&includeIngredients=${ingredientsList}&excludeIngredients=${excludeIngredients}&intolerances=${intolerances}&apiKey=${apiKey}`
+
 
 fetch(complexSearch)
 .then((response) => {
     return response.json();
 })
+
 .then((data) => {
+    console.log("hello this is a complex test")
     console.log(data);
+
+  // Create an Array from the Recipe IDs
+
+    for (let i=0; i < Math.min(data.results.length, 10) ; i++) {
+    const complexRecipeId = data.results[i].id
+    recipeIdsArray.push(complexRecipeId)
    
+    }
+    console.log("This is the recipes ID array:" , recipeIdsArray);
+
+// Returned Recipe IDs are pushed into the Recipe by ID endpoint
+
+    for (let i=0; i<recipeIdsArray.length; i++) {
+
+        const recipeById = `https://api.spoonacular.com/recipes/${recipeIdsArray[i]}/information?includeNutrition=true&apiKey=${apiKey}`
+        
+        fetch(recipeById)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log("RecipebyId:" , data);
+
+//Required ingredients list is created, by looping through each result and grabbing the ingredient.
+
+            const requiredIngredients = []
+            for (let i=0; i < data.extendedIngredients.length; i++) {
+                const ingredientName = data.extendedIngredients[i].originalName
+                requiredIngredients.push(ingredientName)
+               
+            } console.log("These are the required ingredients" , requiredIngredients)
+        })
+        }
+
 })
 .catch((error) => {
     console.error('Error:', error);
 });
+
+}
+
+}
+)
+
+// Possible Quotes Section
+
+let options = {
+    method: 'GET',
+    headers: {'x-api-key': 'JZC2eZ5nabKsgwRtWJ7g2Q==4IHvpQpIsbsw6hYp'}
+  }
+
+const foodQuotationsFetch = 'https://api.api-ninjas.com/v1/quotes?category=food'
+
+fetch(foodQuotationsFetch, options)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Food Quotes" , data)
+
+            // Content
+let foodQuotation = data[0].quote
+let foodQuotationAuthor = data[0].author
+
+$('#quotation').text(foodQuotation)
+$('#author').text(foodQuotationAuthor)
+
+
+
+console.log(foodQuotation)
+       
+})
+
+
+
