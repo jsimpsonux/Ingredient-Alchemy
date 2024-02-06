@@ -12,9 +12,23 @@ const apiKey = '4fcf78db28eb4c6cbaaced6e99ff8ab6'
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
 let allRecipesArray = []
-let complexRecipesArray = []
+let recipeIdsArray = []
 
 // Click events for search inputs and clear
+
+for (let i=0; i < ingredientsList.length; i++) {
+   var storedIngredient =  $('<p>').text(ingredientsList[i])
+   var storedIngredients = $('#ingredient-select').append(storedIngredient);
+
+}
+
+function emptyData () {
+    $('#ingredient-exclude').empty()
+    $('#ingredient-select').empty()
+    ingredientsList.length = 0;
+    excludeIngredients.length = 0;
+    localStorage.clear()
+}
 
 $('#select-button').on("click", function(event) {
     event.preventDefault();
@@ -33,20 +47,17 @@ $('#exclude-button').on("click", function(event) {
     console.log("Hello World!")
     var excludeIngredientText = $('#exclude-ingredients').val()
     var exclusionsList = $('<p>').text(excludeIngredientText);
-$('#ingredient-exclude').append(exclusionsList);
-excludeIngredients.push(excludeIngredientText);
-localStorage.setItem("Excluded Ingredients", JSON.stringify(excludeIngredients))
-console.log(excludeIngredients)
+    $('#ingredient-exclude').append(exclusionsList);
+    excludeIngredients.push(excludeIngredientText);
+    localStorage.setItem("Excluded Ingredients", JSON.stringify(excludeIngredients))
+    console.log(excludeIngredients)
 })
 
 
 $('#empty-selections').on("click", function(event) {
 event.preventDefault();
 console.log("Hello worlds!")
-$('#ingredient-exclude').empty()
-$('#ingredient-select').empty()
-ingredientsList.length = 0;
-excludeIngredients.length = 0;
+emptyData()
 })
 
 $('input[type=radio][name=options]').change(function() {
@@ -58,40 +69,15 @@ $('#submit-button').on("click", function (event) {
     event.preventDefault();
     console.log("on click test")
     complexSearch()
-    findIngredients()
-
-})
-
-// search an ingredients list and it will return recipes which contain them. ALSO RETURNS MISSING INGREDIENTS FOR A SHOPPING LIST.
-
-function findIngredients (ingredient) {
-
-const recipeFetch = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsList}&number=50&apiKey=${apiKey}`
-
-fetch(recipeFetch)
-.then((response) => {
-    return response.json();
-})
-.then((data) => {
-    console.log(data);
-    allRecipesArray = data
-    for (let i=0; i < data.length; i++) {
+    emptyData()
     
-    const recipe = data[i]
-    const missingIngredientNames = recipe.missedIngredients.map(ingredient => ingredient.originalName);
 
-    // console.log(missingIngredientNames)
-    }
 })
-.catch((error) => {
-    console.error('Error:', error);
 
 
-});
-}
 
+// Complex Search function. This returns Recipe IDs and then passes them to the Recipe ID API
 
-// // Example of a very complex search query to see what it can handle.
 function complexSearch (ingredient) {
 
 const userQuery = ''
@@ -102,27 +88,48 @@ const intolerances = ''
 const complexSearch = `https://api.spoonacular.com/recipes/complexSearch?query=${userQuery}&cuisine=${cuisine}&diet=${diet}&includeIngredients=${ingredientsList}&excludeIngredients=${excludeIngredients}&intolerances=${intolerances}&apiKey=${apiKey}`
 
 
-
 fetch(complexSearch)
 .then((response) => {
     return response.json();
 })
+
 .then((data) => {
+    console.log("hello this is a complex test")
     console.log(data);
-    complexRecipesArray = data
-    console.log("This is the complex fetch", allRecipesArray)
 
-const recipeID = data.results[0].id
-console.log(recipeID)
-const recipeTitle = data.results[0].title
-console.log(recipeTitle)
-const recipeImage = data.results[0].image
-console.log(recipeImage)
+  // Create an Array from the Recipe IDs
 
-const combinedArray = allRecipesArray.filter(item1 => complexRecipesArray.results.find(item2 => item2.id === item1.id));
-
-console.log("This is the combined array:", combinedArray);
+    for (let i=0; i < Math.min(data.results.length, 10) ; i++) {
+    const complexRecipeId = data.results[i].id
+    recipeIdsArray.push(complexRecipeId)
    
+    }
+    console.log("This is the recipes ID array:" , recipeIdsArray);
+
+// Returned Recipe IDs are pushed into the Recipe by ID endpoint
+
+    for (let i=0; i<recipeIdsArray.length; i++) {
+
+        const recipeById = `https://api.spoonacular.com/recipes/${recipeIdsArray[i]}/information?includeNutrition=true&apiKey=${apiKey}`
+        
+        fetch(recipeById)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log("RecipebyId:" , data);
+
+//Required ingredients list is created, by looping through each result and grabbing the ingredient.
+
+            const requiredIngredients = []
+            for (let i=0; i < data.extendedIngredients.length; i++) {
+                const ingredientName = data.extendedIngredients[i].originalName
+                requiredIngredients.push(ingredientName)
+               
+            } console.log("These are the required ingredients" , requiredIngredients)
+        })
+        }
+
 })
 .catch((error) => {
     console.error('Error:', error);
@@ -130,6 +137,37 @@ console.log("This is the combined array:", combinedArray);
 
 }
 
-
 }
 )
+
+// Possible Quotes Section
+
+let options = {
+    method: 'GET',
+    headers: {'x-api-key': 'JZC2eZ5nabKsgwRtWJ7g2Q==4IHvpQpIsbsw6hYp'}
+  }
+
+const foodQuotationsFetch = 'https://api.api-ninjas.com/v1/quotes?category=food'
+
+fetch(foodQuotationsFetch, options)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Food Quotes" , data)
+
+            // Content
+let foodQuotation = data[0].quote
+let foodQuotationAuthor = data[0].author
+
+$('#quotation').text(foodQuotation)
+$('#author').text(foodQuotationAuthor)
+
+
+
+console.log(foodQuotation)
+       
+})
+
+
+
