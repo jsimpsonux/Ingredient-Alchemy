@@ -75,14 +75,9 @@ $('#submit-button').on("click", function (event) {
 })
 
 
-// Fetch by ID test
 
-function recipeById () {
-var recipeIdsArray = []
+// Complex Search function. This returns Recipe IDs and then passes them to the Recipe ID API
 
-}
-
-// Example of a very complex search query to see what it can handle.
 function complexSearch (ingredient) {
 
 const userQuery = ''
@@ -102,12 +97,16 @@ fetch(complexSearch)
     console.log("hello this is a complex test")
     console.log(data);
 
+  // Create an Array from the Recipe IDs
+
     for (let i=0; i < Math.min(data.results.length, 10) ; i++) {
     const complexRecipeId = data.results[i].id
     recipeIdsArray.push(complexRecipeId)
    
     }
     console.log("This is the recipes ID array:" , recipeIdsArray);
+
+// Returned Recipe IDs are pushed into the Recipe by ID endpoint
 
     for (let i=0; i<recipeIdsArray.length; i++) {
 
@@ -119,6 +118,9 @@ fetch(complexSearch)
         })
         .then((data) => {
             console.log("RecipebyId:" , data);
+
+//Required ingredients list is created, by looping through each result and grabbing the ingredient.
+
             const requiredIngredients = []
             for (let i=0; i < data.extendedIngredients.length; i++) {
                 const ingredientName = data.extendedIngredients[i].originalName
@@ -127,29 +129,6 @@ fetch(complexSearch)
             } console.log("These are the required ingredients" , requiredIngredients)
         })
         }
-
-    // Recipe by ID fetch
-
-    // for (let i=0; i<recipeIdsArray; i++) {
-
-    //     const recipeById = `https://api.spoonacular.com/recipes/${recipeIdsArray[i]}/information?includeNutrition=true&apiKey=${apiKey}`
-        
-    //     fetch(recipeById)
-    //     .then((response) => {
-    //         return response.json();
-    //     })
-    //     .then((data) => {
-    //         console.log("RecipebyId:" , data);
-    //         const requiredIngredients = ['jelly']
-    //         for (let i=0; i < data.extendedIngredients.length; i++) {
-    //             const ingredientName = data.extendedIngredients[i].originalName
-    //             requiredIngredients.push(ingredientName)
-    //             console.log("These are the required ingredients" , requiredIngredients)
-        
-    //         }
-        
-    //     })
-    //     }
 
 })
 .catch((error) => {
@@ -161,47 +140,34 @@ fetch(complexSearch)
 }
 )
 
-// const recipeID = data.results[0].id
-// console.log(recipeID)
-// const recipeTitle = data.results[0].title
-// console.log(recipeTitle)
-// const recipeImage = data.results[0].image
-// console.log(recipeImage)
+// Possible Quotes Section
+
+let options = {
+    method: 'GET',
+    headers: {'x-api-key': 'JZC2eZ5nabKsgwRtWJ7g2Q==4IHvpQpIsbsw6hYp'}
+  }
+
+const foodQuotationsFetch = 'https://api.api-ninjas.com/v1/quotes?category=food'
+
+fetch(foodQuotationsFetch, options)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log("Food Quotes" , data)
+
+            // Content
+let foodQuotation = data[0].quote
+let foodQuotationAuthor = data[0].author
+
+$('#quotation').text(foodQuotation)
+$('#author').text(foodQuotationAuthor)
 
 
-// console.log("This is the combined array:", combinedArray);
-   
+
+console.log(foodQuotation)
+       
+})
 
 
-
-
-
-
-// search an ingredients list and it will return recipes which contain them. ALSO RETURNS MISSING INGREDIENTS FOR A SHOPPING LIST.
-
-// function findIngredients (ingredient) {
-
-// const recipeFetch = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsList}&number=50&apiKey=${apiKey}`
-
-// fetch(recipeFetch)
-// .then((response) => {
-//     return response.json();
-// })
-// .then((data) => {
-//     console.log(data);
-//     allRecipesArray = data
-//     for (let i=0; i < data.length; i++) {
-    
-//     const recipe = data[i]
-//     const missingIngredientNames = recipe.e.map(ingredient => ingredient.originalName);
-
-//     console.log(missingIngredientNames)
-//     }
-// })
-// .catch((error) => {
-//     console.error('Error:', error);
-
-
-// });
-// }
 
