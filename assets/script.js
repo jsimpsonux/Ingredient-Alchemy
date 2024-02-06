@@ -7,7 +7,7 @@ $(document).ready(function() {
 //apiKey 4 = 99acb6358dc34668b97f970d4ff5ce65
 //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
 
-const apiKey = '4fcf78db28eb4c6cbaaced6e99ff8ab6'
+const apiKey = '99acb6358dc34668b97f970d4ff5ce65'
 
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
@@ -15,6 +15,20 @@ let allRecipesArray = []
 let complexRecipesArray = []
 
 // Click events for search inputs and clear
+
+for (let i=0; i < ingredientsList.length; i++) {
+   var storedIngredient =  $('<p>').text(ingredientsList[i])
+   var storedIngredients = $('#ingredient-select').append(storedIngredient);
+
+}
+
+function emptyData () {
+    $('#ingredient-exclude').empty()
+    $('#ingredient-select').empty()
+    ingredientsList.length = 0;
+    excludeIngredients.length = 0;
+    localStorage.clear()
+}
 
 $('#select-button').on("click", function(event) {
     event.preventDefault();
@@ -33,20 +47,17 @@ $('#exclude-button').on("click", function(event) {
     console.log("Hello World!")
     var excludeIngredientText = $('#exclude-ingredients').val()
     var exclusionsList = $('<p>').text(excludeIngredientText);
-$('#ingredient-exclude').append(exclusionsList);
-excludeIngredients.push(excludeIngredientText);
-localStorage.setItem("Excluded Ingredients", JSON.stringify(excludeIngredients))
-console.log(excludeIngredients)
+    $('#ingredient-exclude').append(exclusionsList);
+    excludeIngredients.push(excludeIngredientText);
+    localStorage.setItem("Excluded Ingredients", JSON.stringify(excludeIngredients))
+    console.log(excludeIngredients)
 })
 
 
 $('#empty-selections').on("click", function(event) {
 event.preventDefault();
 console.log("Hello worlds!")
-$('#ingredient-exclude').empty()
-$('#ingredient-select').empty()
-ingredientsList.length = 0;
-excludeIngredients.length = 0;
+emptyData()
 })
 
 $('input[type=radio][name=options]').change(function() {
@@ -58,40 +69,36 @@ $('#submit-button').on("click", function (event) {
     event.preventDefault();
     console.log("on click test")
     complexSearch()
-    findIngredients()
+    emptyData()
+    
 
 })
 
-// search an ingredients list and it will return recipes which contain them. ALSO RETURNS MISSING INGREDIENTS FOR A SHOPPING LIST.
 
-function findIngredients (ingredient) {
+// Recipe by ID fetch
 
-const recipeFetch = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsList}&number=50&apiKey=${apiKey}`
 
-fetch(recipeFetch)
+const recipeById = `https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=true&apiKey=${apiKey}`
+
+fetch(recipeById)
 .then((response) => {
     return response.json();
 })
 .then((data) => {
-    console.log(data);
-    allRecipesArray = data
-    for (let i=0; i < data.length; i++) {
-    
-    const recipe = data[i]
-    const missingIngredientNames = recipe.missedIngredients.map(ingredient => ingredient.originalName);
+    console.log("RecipebyId:" , data);
+    const requiredIngredients = []
+    for (let i=0; i < data.extendedIngredients.length; i++) {
+        const ingredientName = data.extendedIngredients[i].originalName
+        requiredIngredients.push(ingredientName)
+        console.log(requiredIngredients)
 
-    // console.log(missingIngredientNames)
     }
+        
+
 })
-.catch((error) => {
-    console.error('Error:', error);
 
 
-});
-}
-
-
-// // Example of a very complex search query to see what it can handle.
+// Example of a very complex search query to see what it can handle.
 function complexSearch (ingredient) {
 
 const userQuery = ''
@@ -102,27 +109,23 @@ const intolerances = ''
 const complexSearch = `https://api.spoonacular.com/recipes/complexSearch?query=${userQuery}&cuisine=${cuisine}&diet=${diet}&includeIngredients=${ingredientsList}&excludeIngredients=${excludeIngredients}&intolerances=${intolerances}&apiKey=${apiKey}`
 
 
-
 fetch(complexSearch)
 .then((response) => {
     return response.json();
 })
+
 .then((data) => {
+    console.log("hello this is a complex test")
     console.log(data);
-    complexRecipesArray = data
-    console.log("This is the complex fetch", allRecipesArray)
 
-const recipeID = data.results[0].id
-console.log(recipeID)
-const recipeTitle = data.results[0].title
-console.log(recipeTitle)
-const recipeImage = data.results[0].image
-console.log(recipeImage)
+    const recipeIdsArray = []
 
-const combinedArray = allRecipesArray.filter(item1 => complexRecipesArray.results.find(item2 => item2.id === item1.id));
+    for (let i=0; i < data.results.length; i++) {
+    const recipeId = data.results[i].id
+    recipeIdsArray.push(recipeId)
+    console.log(recipeIdsArray)
+    }
 
-console.log("This is the combined array:", combinedArray);
-   
 })
 .catch((error) => {
     console.error('Error:', error);
@@ -130,6 +133,51 @@ console.log("This is the combined array:", combinedArray);
 
 }
 
-
 }
 )
+
+// const recipeID = data.results[0].id
+// console.log(recipeID)
+// const recipeTitle = data.results[0].title
+// console.log(recipeTitle)
+// const recipeImage = data.results[0].image
+// console.log(recipeImage)
+
+// const combinedArray = allRecipesArray.filter(item1 => complexRecipesArray.results.find(item2 => item2.id === item1.id));
+
+// console.log("This is the combined array:", combinedArray);
+   
+
+
+
+
+
+
+// search an ingredients list and it will return recipes which contain them. ALSO RETURNS MISSING INGREDIENTS FOR A SHOPPING LIST.
+
+// function findIngredients (ingredient) {
+
+// const recipeFetch = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredientsList}&number=50&apiKey=${apiKey}`
+
+// fetch(recipeFetch)
+// .then((response) => {
+//     return response.json();
+// })
+// .then((data) => {
+//     console.log(data);
+//     allRecipesArray = data
+//     for (let i=0; i < data.length; i++) {
+    
+//     const recipe = data[i]
+//     const missingIngredientNames = recipe.e.map(ingredient => ingredient.originalName);
+
+//     console.log(missingIngredientNames)
+//     }
+// })
+// .catch((error) => {
+//     console.error('Error:', error);
+
+
+// });
+// }
+
