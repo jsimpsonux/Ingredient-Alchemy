@@ -7,12 +7,12 @@ $(document).ready(function() {
 //apiKey 4 = 99acb6358dc34668b97f970d4ff5ce65
 //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
 
-const apiKey = '99acb6358dc34668b97f970d4ff5ce65'
+const apiKey = '4fcf78db28eb4c6cbaaced6e99ff8ab6'
 
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
 let allRecipesArray = []
-let complexRecipesArray = []
+let recipeIdsArray = []
 
 // Click events for search inputs and clear
 
@@ -75,28 +75,12 @@ $('#submit-button').on("click", function (event) {
 })
 
 
-// Recipe by ID fetch
+// Fetch by ID test
 
+function recipeById () {
+var recipeIdsArray = []
 
-const recipeById = `https://api.spoonacular.com/recipes/${recipeId}/information?includeNutrition=true&apiKey=${apiKey}`
-
-fetch(recipeById)
-.then((response) => {
-    return response.json();
-})
-.then((data) => {
-    console.log("RecipebyId:" , data);
-    const requiredIngredients = []
-    for (let i=0; i < data.extendedIngredients.length; i++) {
-        const ingredientName = data.extendedIngredients[i].originalName
-        requiredIngredients.push(ingredientName)
-        console.log(requiredIngredients)
-
-    }
-        
-
-})
-
+}
 
 // Example of a very complex search query to see what it can handle.
 function complexSearch (ingredient) {
@@ -118,13 +102,54 @@ fetch(complexSearch)
     console.log("hello this is a complex test")
     console.log(data);
 
-    const recipeIdsArray = []
-
-    for (let i=0; i < data.results.length; i++) {
-    const recipeId = data.results[i].id
-    recipeIdsArray.push(recipeId)
-    console.log(recipeIdsArray)
+    for (let i=0; i < Math.min(data.results.length, 10) ; i++) {
+    const complexRecipeId = data.results[i].id
+    recipeIdsArray.push(complexRecipeId)
+   
     }
+    console.log("This is the recipes ID array:" , recipeIdsArray);
+
+    for (let i=0; i<recipeIdsArray.length; i++) {
+
+        const recipeById = `https://api.spoonacular.com/recipes/${recipeIdsArray[i]}/information?includeNutrition=true&apiKey=${apiKey}`
+        
+        fetch(recipeById)
+        .then((response) => {
+            return response.json();
+        })
+        .then((data) => {
+            console.log("RecipebyId:" , data);
+            const requiredIngredients = []
+            for (let i=0; i < data.extendedIngredients.length; i++) {
+                const ingredientName = data.extendedIngredients[i].originalName
+                requiredIngredients.push(ingredientName)
+               
+            } console.log("These are the required ingredients" , requiredIngredients)
+        })
+        }
+
+    // Recipe by ID fetch
+
+    // for (let i=0; i<recipeIdsArray; i++) {
+
+    //     const recipeById = `https://api.spoonacular.com/recipes/${recipeIdsArray[i]}/information?includeNutrition=true&apiKey=${apiKey}`
+        
+    //     fetch(recipeById)
+    //     .then((response) => {
+    //         return response.json();
+    //     })
+    //     .then((data) => {
+    //         console.log("RecipebyId:" , data);
+    //         const requiredIngredients = ['jelly']
+    //         for (let i=0; i < data.extendedIngredients.length; i++) {
+    //             const ingredientName = data.extendedIngredients[i].originalName
+    //             requiredIngredients.push(ingredientName)
+    //             console.log("These are the required ingredients" , requiredIngredients)
+        
+    //         }
+        
+    //     })
+    //     }
 
 })
 .catch((error) => {
@@ -143,7 +168,6 @@ fetch(complexSearch)
 // const recipeImage = data.results[0].image
 // console.log(recipeImage)
 
-// const combinedArray = allRecipesArray.filter(item1 => complexRecipesArray.results.find(item2 => item2.id === item1.id));
 
 // console.log("This is the combined array:", combinedArray);
    
