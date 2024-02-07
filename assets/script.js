@@ -10,7 +10,7 @@ $(document).ready(function() {
 //apiKey 6 = 21198f5239fa4edf8b12865546490f26
 //apiKey 7 = 43402bf0e56e46ee954bc7eb44a2de93
 
-const apiKey = '43402bf0e56e46ee954bc7eb44a2de93'
+const apiKey = '4578a4983b9e4c158be40e595bee132b'
 
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
@@ -212,9 +212,10 @@ for (let i=0; i < recipesList.length; i++) {
     let recipeImage = recipesList[i].image
     let recipeDescription = recipesList[i].summary
     let recipeSourceUrl = recipesList[i].sourceUrl
+    let recipePrepTime = recipesList[i].readyInMinutes
     
     
-    cardBody.html(`<h5>${recipeTitle}</h5><img src="${recipeImage}" class="card-img-top" alt="Recipe Image"><div>${recipeDescription}</div>`);
+    cardBody.html(`<h5>${recipeTitle}</h5><div>Recipe ready in: ${recipePrepTime} minutes!</div><img src="${recipeImage}" class="card-img-top" alt="Recipe Image"><div>${recipeDescription}</div>`);
 
     recipeContainer.append(cardBody)
 }
