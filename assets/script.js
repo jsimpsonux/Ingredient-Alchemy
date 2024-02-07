@@ -9,7 +9,7 @@ $(document).ready(function() {
 //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
 //apiKey 6 = 21198f5239fa4edf8b12865546490f26
 
-const apiKey = 'c0abc7498fa042c0b538fd2e57aecd2c'
+const apiKey = 'b15d9beffca2415da65565e8dbd5ac4d'
 
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
@@ -164,20 +164,33 @@ fetch(complexSearch)
 
 // Returned Recipe IDs are pushed into the Recipe by ID endpoint
 
+// recipesList contains every recipe which is returned, all in one array. 
+//This can then be used to populate the content.
+
+let recipesList = []
+
     for (let i=0; i<recipeIdsArray.length; i++) {
 
         const recipeById = `https://api.spoonacular.com/recipes/${recipeIdsArray[i]}/information?includeNutrition=true&apiKey=${apiKey}`
         
+      
+
         fetch(recipeById)
         .then((response) => {
             return response.json();
         })
         .then((data) => {
             console.log("RecipebyId:" , data);
+            let singleRecipe = data
+            recipesList.push(singleRecipe)
+            console.log("This is the Recipes List:", recipesList)
+       
+
 
 //Required ingredients list is created, by looping through each result and grabbing the ingredient.
 
             const requiredIngredients = []
+
             for (let i=0; i < data.extendedIngredients.length; i++) {
                 const ingredientName = data.extendedIngredients[i].originalName
                 requiredIngredients.push(ingredientName)
@@ -186,7 +199,30 @@ fetch(complexSearch)
         
        // Carousel jQuery content
 
-let recipeTitle =  data.title
+
+       let recipeContainer = $('#recipe-container')
+       let cardId = 0
+
+for (let i=0; i < recipesList.length; i++) {
+    let recipeTitle = recipesList[i].title
+    let recipeImage = recipesList[i].image
+    let recipeDescription = recipesList[i].summary
+    let recipeSourceUrl = recipesList[i].sourceUrl
+    
+    
+    let cardBody = $('<div>').addClass("card-body").attr("id", [i])
+    
+    // console.log(cardBody)
+
+    console.log(recipeTitle)
+    console.log(recipeImage)
+    console.log(recipeDescription)
+    console.log(recipeSourceUrl)
+    
+
+}
+// recipeContainer.append(cardBody)
+
 console.log(recipeTitle)
 $('#recipeTitle').text(recipeTitle)
 let recipeImage = data.image
