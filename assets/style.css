@@ -24,3 +24,24 @@ body, .container-fluid {
  .arrow.down {
         transform: rotate(90deg);
 }
+
+#architects-daughter-regular {
+    font-family: "Architects Daughter", cursive;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#julius-sans {
+    font-family: "Julius Sans One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    /* font-size: 64pt; */
+}
+
+#archivo {
+    font-family: "Archivo Narrow", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18pt;
+}
