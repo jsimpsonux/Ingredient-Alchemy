@@ -9,7 +9,7 @@ $(document).ready(function() {
 //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
 //apiKey 6 = 21198f5239fa4edf8b12865546490f26
 
-const apiKey = 'c9db4df7f4d4478c9b712d2b7950c4bc'
+const apiKey = 'c0abc7498fa042c0b538fd2e57aecd2c'
 
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
@@ -182,7 +182,23 @@ fetch(complexSearch)
                 const ingredientName = data.extendedIngredients[i].originalName
                 requiredIngredients.push(ingredientName)
                
-            } console.log("These are the required ingredients" , requiredIngredients[0])
+            } console.log("These are the required ingredients" , requiredIngredients)
+        
+       // Carousel jQuery content
+
+let recipeTitle =  data.title
+console.log(recipeTitle)
+$('#recipeTitle').text(recipeTitle)
+let recipeImage = data.image
+let recipeImageSrc = `<img src=${recipeImage} class="card-img-top" alt="Recipe Image" id="RecipeImage">`
+console.log(recipeImage)
+$('#recipe-image').html(recipeImageSrc)
+
+for (let i=0; i < requiredIngredients.length; i++) {
+   let ingredientContent =  requiredIngredients[i]
+   let ingredientContentHtml = $('<p>').text(ingredientContent)
+   $('#requiredIngredients').append(ingredientContentHtml)
+}
         })
         }
 
@@ -193,10 +209,9 @@ fetch(complexSearch)
 
 }
 
-}
-)
 
-// Possible Quotes Section
+
+// Quotes Section
 
 let options = {
     method: 'GET',
@@ -212,7 +227,7 @@ fetch(foodQuotationsFetch, options)
         .then((data) => {
             console.log("Food Quotes" , data)
 
-            // Content
+            // Content for the quotation
 let foodQuotation = data[0].quote
 let foodQuotationAuthor = data[0].author
 
@@ -226,4 +241,6 @@ console.log(foodQuotation)
 })
 
 
+}
+)
 
