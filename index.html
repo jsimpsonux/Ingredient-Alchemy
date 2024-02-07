@@ -222,59 +222,92 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                                <li class="mb-1">
+                                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                                        data-bs-toggle="collapse" data-bs-target="#intol-collapse" aria-expanded="false" id="toggle-intol">
+                                        <span class="fs-5 mt-3 fw-semibold">Intolerances<span class="arrow"></span></span>
+                                    </button>
+                                    <div class="collapse show" id="intol-collapse">
+                                        <div class="btn-group-vertical ms-2" role="group" aria-label="Vertical radio toggle button group">
+                                            <div class="row mt-3">
+                                                <div class="col">
+                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol1" autocomplete="off" checked>
+                                                    <label class="btn btn-outline-primary" for="vbtn-intol1">None</label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol2" autocomplete="off">
+                                                    <label class="btn btn-outline-primary" for="vbtn-intol2">Shellfish</label>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3">
+                                                <div class="col">
+                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol3" autocomplete="off">
+                                                    <label class="btn btn-outline-primary" for="vbtn-intol3">Wheat</label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol4" autocomplete="off">
+                                                    <label class="btn btn-outline-primary" for="vbtn-intol4">Dairy</label>
+                                                </div>
+                                            </div>
+                                            <div class="row mt-3 mb-3">
+                                                <div class="col">
+                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol5" autocomplete="off">
+                                                    <label class="btn btn-outline-primary" for="vbtn-intol5">Soy</label>
+                                                </div>
+                                                <div class="col">
+                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol6" autocomplete="off">
+                                                    <label class="btn btn-outline-primary" for="vbtn-intol6">Sesame</label>
+                                                </div>
 
-                            <li class="mb-1">
-                                <button
-                                    class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                                    data-bs-toggle="collapse" data-bs-target="#diet-collapse" aria-expanded="false"
-                                    id="toggle-diet">
-                                    <span class="fs-5 mt-3 fw-semibold">Dietary<span class="arrow"></span></span>
-                                </button>
-                                <div class="collapse show" id="diet-collapse">
-                                    <div class="btn-group-vertical ms-2" role="group"
-                                        aria-label="Vertical radio toggle button group">
-                                        <div class="row mt-3">
-                                            <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-diet1"
-                                                    autocomplete="off" checked>
-                                                <label class="btn btn-outline-primary" for="vbtn-diet1">None</label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-diet2"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-primary"
-                                                    for="vbtn-diet2">Vegetarian</label>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-diet3"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-primary" for="vbtn-diet3">Vegan</label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-diet4"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-primary"
-                                                    for="vbtn-diet4">Pescetarian</label>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-3">
-                                            <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-diet5"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-primary"
-                                                    for="vbtn-diet5">Ketogenic</label>
-                                            </div>
-                                            <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-diet6"
-                                                    autocomplete="off">
-                                                <label class="btn btn-outline-primary" for="vbtn-diet6">Paleo</label>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- <div class="form-check">
+
+                     
+
+                                        <li class="mb-1">
+                                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                                                data-bs-toggle="collapse" data-bs-target="#diet-collapse" aria-expanded="false" id="toggle-diet">
+                                                <span class="fs-5 mt-3 fw-semibold">Dietary<span class="arrow"></span></span>
+                                            </button>
+                                            <div class="collapse show" id="diet-collapse">
+                                                <div class="btn-group-vertical ms-2" role="group" aria-label="Vertical radio toggle button group">
+                                                    <div class="row mt-3">
+                                                        <div class="col">
+                                                            <input type="radio" class="btn-check" name="vbtn-diet" id="vbtn-diet1" autocomplete="off" checked>
+                                                            <label class="btn btn-outline-primary" for="vbtn-diet1">None</label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="radio" class="btn-check" name="vbtn-diet" id="vbtn-diet2" autocomplete="off">
+                                                            <label class="btn btn-outline-primary" for="vbtn-diet2">Vegetarian</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-3">
+                                                        <div class="col">
+                                                            <input type="radio" class="btn-check" name="vbtn-diet" id="vbtn-diet3" autocomplete="off">
+                                                            <label class="btn btn-outline-primary" for="vbtn-diet3">Vegan</label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="radio" class="btn-check" name="vbtn-diet" id="vbtn-diet4" autocomplete="off">
+                                                            <label class="btn btn-outline-primary" for="vbtn-diet4">Pescetarian</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row mt-3">
+                                                        <div class="col">
+                                                            <input type="radio" class="btn-check" name="vbtn-diet" id="vbtn-diet5" autocomplete="off">
+                                                            <label class="btn btn-outline-primary" for="vbtn-diet5">Ketogenic</label>
+                                                        </div>
+                                                        <div class="col">
+                                                            <input type="radio" class="btn-check" name="vbtn-diet" id="vbtn-diet6" autocomplete="off">
+                                                            <label class="btn btn-outline-primary" for="vbtn-diet6">Paleo</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                    
+<!--
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                             <label class="form-check-label fs-6" for="flexCheckDefault">
                                 Gluten

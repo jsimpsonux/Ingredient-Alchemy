@@ -9,7 +9,7 @@ $(document).ready(function() {
 //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
 //apiKey 6 = 21198f5239fa4edf8b12865546490f26
 
-const apiKey = '4fcf78db28eb4c6cbaaced6e99ff8ab6'
+const apiKey = 'c9db4df7f4d4478c9b712d2b7950c4bc'
 
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
@@ -41,7 +41,7 @@ $('#toggle-diet').on('click', function() {
     arrow.classList.toggle('down');
 });
 
-
+// function to empty data from various locations once submitted or reset
 
 function emptyData () {
     $('#ingredient-exclude').empty()
@@ -85,11 +85,38 @@ $('input[name="vbtn-radio"]').click(function() {
    
     if ($(this).next().text() === "Any") {
         let cuisineStored = ""
+        localStorage.setItem("Cuisine", cuisineStored)
         console.log(cuisineStored)
     } else {
     let cuisineStored = $(this).next().text();
     console.log(cuisineStored)
 localStorage.setItem("Cuisine", cuisineStored) }
+}
+)
+
+$('input[name="vbtn-intol"]').click(function() {
+   
+    if ($(this).next().text() === "None") {
+        let intolerancesStored = ""
+        localStorage.setItem("Intolerances", intolerancesStored) 
+        console.log(intolerancesStored)
+    } else {
+    let intolerancesStored = $(this).next().text();
+    console.log(intolerancesStored)
+localStorage.setItem("Intolerances", intolerancesStored) }
+}
+)
+
+$('input[name="vbtn-diet"]').click(function() {
+   
+    if ($(this).next().text() === "None") {
+        let dietStored = ""
+        localStorage.setItem("Dietary", dietStored) 
+        console.log(dietStored)
+    } else {
+    let dietStored = $(this).next().text();
+    console.log(dietStored)
+localStorage.setItem("Dietary", dietStored) }
 }
 )
 
@@ -106,13 +133,13 @@ $('#submit-button').on("click", function (event) {
 
 // Complex Search function. This returns Recipe IDs and then passes them to the Recipe ID API
 
-function complexSearch (ingredientA, ingredientB, cuisine) {
+function complexSearch (ingredientA, ingredientB, cuisine, diet, intolerances) {
 
 const userQuery = ''
-cuisine = localStorage.getItem("Cuisine") || ''
-const diet = ''
-const intolerances = ''
-console.log("This is the new value for cuisine" , cuisine)
+cuisine = localStorage.getItem("Cuisine") || '';
+diet = localStorage.getItem("Dietary") || '';
+intolerances = localStorage.getItem("Intolerances") || '';
+
 const complexSearch = `https://api.spoonacular.com/recipes/complexSearch?query=${userQuery}&cuisine=${cuisine}&diet=${diet}&includeIngredients=${ingredientsList}&excludeIngredients=${excludeIngredients}&intolerances=${intolerances}&apiKey=${apiKey}`
 
 
