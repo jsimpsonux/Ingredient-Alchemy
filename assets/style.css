@@ -11,6 +11,28 @@ body, .container-fluid {
     height: auto;
 }
 
+.image-container {
+    position: relative;
+    display: inline-block;
+  }
+  .image-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    height: 400px;
+  }
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: x-small;
+    text-align: center;
+  }
+
     .arrow {
         display: inline-block;
         width: 5px;
