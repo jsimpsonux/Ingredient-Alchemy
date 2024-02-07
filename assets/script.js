@@ -6,6 +6,7 @@ $(document).ready(function() {
 //apiKey 3 = c0abc7498fa042c0b538fd2e57aecd2c
 //apiKey 4 = 99acb6358dc34668b97f970d4ff5ce65
 //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
+//apiKey 6 = 21198f5239fa4edf8b12865546490f26
 
 const apiKey = '4fcf78db28eb4c6cbaaced6e99ff8ab6'
 
@@ -13,6 +14,7 @@ const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
 let allRecipesArray = []
 let recipeIdsArray = []
+
 
 // Click events for search inputs and clear
 
@@ -60,15 +62,22 @@ console.log("Hello worlds!")
 emptyData()
 })
 
-$('input[type=radio][name=options]').change(function() {
-    var cuisine = $(this).text()
-console.log(cuisine)
-})
+$('input[name="vbtn-radio"]').click(function() {
+   
+    if ($(this).next().text() === "Any") {
+        let cuisineStored = ""
+        console.log(cuisineStored)
+    } else {
+    let cuisineStored = $(this).next().text();
+    console.log(cuisineStored)
+localStorage.setItem("Cuisine", cuisineStored) }
+}
+)
 
 $('#submit-button').on("click", function (event) {
     event.preventDefault();
     console.log("on click test")
-    complexSearch()
+    complexSearch(ingredientsList, excludeIngredients)
     emptyData()
     
 
@@ -78,13 +87,13 @@ $('#submit-button').on("click", function (event) {
 
 // Complex Search function. This returns Recipe IDs and then passes them to the Recipe ID API
 
-function complexSearch (ingredient) {
+function complexSearch (ingredientA, ingredientB, cuisine) {
 
 const userQuery = ''
-const cuisine = ''
+cuisine = localStorage.getItem("Cuisine") || ''
 const diet = ''
 const intolerances = ''
-
+console.log("This is the new value for cuisine" , cuisine)
 const complexSearch = `https://api.spoonacular.com/recipes/complexSearch?query=${userQuery}&cuisine=${cuisine}&diet=${diet}&includeIngredients=${ingredientsList}&excludeIngredients=${excludeIngredients}&intolerances=${intolerances}&apiKey=${apiKey}`
 
 
@@ -96,6 +105,7 @@ fetch(complexSearch)
 .then((data) => {
     console.log("hello this is a complex test")
     console.log(data);
+    console.log(complexSearch)
 
   // Create an Array from the Recipe IDs
 
@@ -126,7 +136,7 @@ fetch(complexSearch)
                 const ingredientName = data.extendedIngredients[i].originalName
                 requiredIngredients.push(ingredientName)
                
-            } console.log("These are the required ingredients" , requiredIngredients)
+            } console.log("These are the required ingredients" , requiredIngredients[0])
         })
         }
 
