@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 
+
 //apiKey 1 = 4fcf78db28eb4c6cbaaced6e99ff8ab6
 //apiKey 2 = c9db4df7f4d4478c9b712d2b7950c4bc
 //apiKey 3 = c0abc7498fa042c0b538fd2e57aecd2c
@@ -21,8 +22,26 @@ let recipeIdsArray = []
 for (let i=0; i < ingredientsList.length; i++) {
    var storedIngredient =  $('<p>').text(ingredientsList[i])
    var storedIngredients = $('#ingredient-select').append(storedIngredient);
-
 }
+
+// Toggle arrow when sections are selected
+
+$('#toggle-arrow').on('click', function() {
+    const arrow = this.querySelector('.arrow');
+    arrow.classList.toggle('down');
+});
+
+$('#toggle-intol').on('click', function() {
+    const arrow = this.querySelector('.arrow');
+    arrow.classList.toggle('down');
+});
+
+$('#toggle-diet').on('click', function() {
+    const arrow = this.querySelector('.arrow');
+    arrow.classList.toggle('down');
+});
+
+
 
 function emptyData () {
     $('#ingredient-exclude').empty()
