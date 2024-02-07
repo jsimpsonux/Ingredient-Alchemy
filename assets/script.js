@@ -8,8 +8,9 @@ $(document).ready(function() {
 //apiKey 4 = 99acb6358dc34668b97f970d4ff5ce65
 //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
 //apiKey 6 = 21198f5239fa4edf8b12865546490f26
+//apiKey 7 = 43402bf0e56e46ee954bc7eb44a2de93
 
-const apiKey = 'b15d9beffca2415da65565e8dbd5ac4d'
+const apiKey = '43402bf0e56e46ee954bc7eb44a2de93'
 
 const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
 const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
@@ -155,6 +156,8 @@ fetch(complexSearch)
 
   // Create an Array from the Recipe IDs
 
+
+
     for (let i=0; i < Math.min(data.results.length, 10) ; i++) {
     const complexRecipeId = data.results[i].id
     recipeIdsArray.push(complexRecipeId)
@@ -164,8 +167,8 @@ fetch(complexSearch)
 
 // Returned Recipe IDs are pushed into the Recipe by ID endpoint
 
-// recipesList contains every recipe which is returned, all in one array. 
-//This can then be used to populate the content.
+// recipesList contains every recipe which is returned, all in one array. This can then be used to populate the content.
+
 
 let recipesList = []
 
@@ -201,7 +204,8 @@ let recipesList = []
 
 
        let recipeContainer = $('#recipe-container')
-       let cardId = 0
+
+let cardBody = $('<div>').addClass("card-body")
 
 for (let i=0; i < recipesList.length; i++) {
     let recipeTitle = recipesList[i].title
@@ -210,32 +214,30 @@ for (let i=0; i < recipesList.length; i++) {
     let recipeSourceUrl = recipesList[i].sourceUrl
     
     
-    let cardBody = $('<div>').addClass("card-body").attr("id", [i])
-    
-    // console.log(cardBody)
+    cardBody.html(`<h5>${recipeTitle}</h5><img src="${recipeImage}" class="card-img-top" alt="Recipe Image"><div>${recipeDescription}</div>`);
 
-    console.log(recipeTitle)
-    console.log(recipeImage)
-    console.log(recipeDescription)
-    console.log(recipeSourceUrl)
-    
-
+    recipeContainer.append(cardBody)
 }
-// recipeContainer.append(cardBody)
 
-console.log(recipeTitle)
-$('#recipeTitle').text(recipeTitle)
-let recipeImage = data.image
-let recipeImageSrc = `<img src=${recipeImage} class="card-img-top" alt="Recipe Image" id="RecipeImage">`
-console.log(recipeImage)
-$('#recipe-image').html(recipeImageSrc)
 
-for (let i=0; i < requiredIngredients.length; i++) {
-   let ingredientContent =  requiredIngredients[i]
-   let ingredientContentHtml = $('<p>').text(ingredientContent)
-   $('#requiredIngredients').append(ingredientContentHtml)
+// console.log(recipeTitle)
+// $('#recipeTitle').text(recipeTitle)
+// let recipeImage = data.image
+// let recipeImageSrc = `<img src=${recipeImage} class="card-img-top" alt="Recipe Image" id="RecipeImage">`
+// console.log(recipeImage)
+// $('#recipe-image').html(recipeImageSrc)
+
+let ingredientsListHTML = $('<ul>')
+
+
+for (let j=0; j < requiredIngredients.length; j++) {
+   let ingredientContent =  requiredIngredients[j]
+   let ingredientContentHtml = $('<li>').text(requiredIngredients[j]);
+   ingredientsListHTML.append(ingredientContentHtml)
 }
-        })
+     cardBody.append($('<h4>').text("Required Ingredients:")); 
+     cardBody.append(ingredientsListHTML)
+})
         }
 
 })
@@ -244,8 +246,6 @@ for (let i=0; i < requiredIngredients.length; i++) {
 });
 
 }
-
-
 
 // Quotes Section
 

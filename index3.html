@@ -44,7 +44,7 @@
     </header>
 
     <div class="container-fluid">
-        <div class="row row-cols-3">
+        <div class="row row-cols-2">
             <div class="flex-shrink-0 p-3 ms-2 bg-white row align-items-start" id="filter" style="width: 280px;">
                 <div class="col">
                     <div class="d-flex pb-3 mb-3 link-dark text-decoration-none border-bottom">
@@ -243,35 +243,22 @@
 
 
 <!-- Recipe Information -->
-
-<div id="carouselExampleCaptions" class="carousel slide ms-1 col-8" data-bs-ride="carousel" >
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-        aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active" id="recipe-container">
-        
-    <button
-      class="carousel-control-prev"
-      type="button"
-      data-bs-target="#carouselExampleCaptions"
-      data-bs-slide="prev"
-    >
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button
-      class="carousel-control-next"
-      type="button"
-      data-bs-target="#carouselExampleCaptions"
-      data-bs-slide="next"
-    >
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>      
+<div class="col-8">
+<div class="jumbotron">
+    <h4 class="display-4">Recipe Information</h4>
+    <p class="lead">Take a look at all the amazing recipes available below.</p>
+    <hr class="my-4">
+    
+    </p>
+  </div>
+                    <div class="card-body">
+                        <h5 class="card-title" id="recipeTitle"></h5>
+                        <div id="recipe-image">
+                            <img src="" class="card-img-top" alt="Recipe Image" id="recipeImage"></div>
+                            <p class="card-text mt-3">Ingredients:</p>
+                            <ul class="list-unstyled" id="requiredIngredients"></ul>
+                        </div>
+                    </div>       
             </div>
             </div>
 
