@@ -9,8 +9,10 @@ $(document).ready(function() {
     //apiKey 5 = b15d9beffca2415da65565e8dbd5ac4d
     //apiKey 6 = 21198f5239fa4edf8b12865546490f26
     //apiKey 7 = 43402bf0e56e46ee954bc7eb44a2de93
+    //apiKey 8 = fd6eb66c744d4dfb8507761206a621fd
+    //apiKey 9 = f319932461024c23812c1faf2ad4291d
     
-    const apiKey = '43402bf0e56e46ee954bc7eb44a2de93'
+    const apiKey = 'f319932461024c23812c1faf2ad4291d'
     
     const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
     const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
@@ -50,7 +52,8 @@ $(document).ready(function() {
         ingredientsList.length = 0;
         excludeIngredients.length = 0;
         localStorage.clear()
-        $('#recipe-container').empty()
+        recipeIdsArray.empty()
+        recipesList = []
     
     }
     
@@ -125,7 +128,6 @@ $(document).ready(function() {
     
     $('#submit-button').on("click", function (event) {
         event.preventDefault();
-        console.log("on click test")
         complexSearch(ingredientsList, excludeIngredients)
         emptyData()
         
@@ -136,7 +138,7 @@ $(document).ready(function() {
     
     // Complex Search function. This returns Recipe IDs and then passes them to the Recipe ID API
     
-    function complexSearch (ingredientA, ingredientB, cuisine, diet, intolerances) {
+    function complexSearch (ingredientsList, excludeIngredients, cuisine, intolerances, diet) {
     
     const userQuery = ''
     cuisine = localStorage.getItem("Cuisine") || '';
@@ -165,7 +167,7 @@ $(document).ready(function() {
         recipeIdsArray.push(complexRecipeId)
        
         }
-        console.log("This is the recipes ID array:" , recipeIdsArray);
+        
     
     // Returned Recipe IDs are pushed into the Recipe by ID endpoint
     
@@ -173,6 +175,8 @@ $(document).ready(function() {
     
     
     let recipesList = []
+
+    $('#recipe-container').empty();
     
         for (let i=0; i<recipeIdsArray.length; i++) {
     
@@ -188,7 +192,7 @@ $(document).ready(function() {
                 console.log("RecipebyId:" , data);
                 let singleRecipe = data
                 recipesList.push(singleRecipe)
-                console.log("This is the Recipes List:", recipesList)
+                
            
     
     
@@ -200,7 +204,7 @@ $(document).ready(function() {
                     const ingredientName = data.extendedIngredients[i].originalName
                     requiredIngredients.push(ingredientName)
                    
-                } console.log("These are the required ingredients" , requiredIngredients)
+                } 
             
            // Carousel jQuery content
     
@@ -219,16 +223,8 @@ for (let i=0; i < recipesList.length; i++) {
 
             cardBody.html(`<h2>${recipeTitle}</h2><h4>Recipe ready in: ${recipePrepTime} minutes!</h4><img src="${recipeImage}" class="card-img-top c-img" alt="Recipe Image"><p>${recipeDescription}</p>${recipeSourceHtml}<hr>`);
         
-            recipeContainer.append(cardBody)
+            recipeContainer.prepend(cardBody)
     }
-    
-    
-    // console.log(recipeTitle)
-    // $('#recipeTitle').text(recipeTitle)
-    // let recipeImage = data.image
-    // let recipeImageSrc = `<img src=${recipeImage} class="card-img-top" alt="Recipe Image" id="RecipeImage">`
-    // console.log(recipeImage)
-    // $('#recipe-image').html(recipeImageSrc)
     
     let ingredientsListHTML = $('<ul>')
     
@@ -274,8 +270,6 @@ for (let i=0; i < recipesList.length; i++) {
     $('#author').text(foodQuotationAuthor)
     
     
-    
-    console.log(foodQuotation)
            
     })
     
