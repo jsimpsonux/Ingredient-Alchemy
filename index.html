@@ -24,16 +24,17 @@
 
 <body>
     <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        
         <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-4">
-                        <span class="fs-4 mt-5" id="julius-sans">Ingredient Alchemy</span>
+                    <div class="col-4 d-flex align-items-center justify-content-center">
+                        <h1 class="fs-1 mt-5 align-items-center mx-5" id="julius-sans">Ingredient Alchemy</h1>
                     </div>
                     <div class="quote-container col-7" style="float: right;">
                         <img src="assets/images/quote.png" class="" style=" width: 8%; height: auto; opacity: 0.2;">
-                        <p class="" id="quotation"></p>
-                        <p class="" id="author"></p>
+                        <h4 class="" id="quotation"></h4>
+                        <h5 class="" id="author"></h5>
                         <img src="assets/images/quote.png" class=""
                             style="width: 8%; height: auto; transform: scaleX(-1) scaleY(-1); opacity: 0.2;">
                     </div>
@@ -41,45 +42,38 @@
             </div>
         </div>
 
-
     </header>
-   
-
-    <!-- Content goes here -->
 
     <div class="container-fluid">
-        <div class="row row-cols-3">
+        <div class="row">
+            <div class="col-md-3">
             <div class="flex-shrink-0 p-3 ms-2 bg-white row align-items-start" id="filter" style="width: 280px;">
-                <div class="col-5">
-
-                    <!--This is the searchbar-->
-
+                <div class="col">
                     <div class="d-flex pb-3 mb-3 link-dark text-decoration-none border-bottom">
                         <h3 class="fs-5 fw-semibold">Select Ingredients</h3>
 
 
-                        <button type="submit" id="empty-selections" class="btn btn-primary ms-3">
+                        <button type="submit" id="empty-selections" class="btn btn-primary ms-3 border-bottom">
 
                             <span class=reload>&#x21bb;</span>
-                            <!-- <i class="fa fa-refresh" aria-hidden="true"></i> -->
+                           
                         </button>
                     </div>
 
 
                     <div>
 
+                        <!-- Select Ingredients -->
                         <div class="input-group my-3">
                             <input type="search" class="form-control rounded" id="select-ingredient"
                                 placeholder="Select" aria-label="Search" aria-describedby="search-addon" />
                             <button type="button" id="select-button" class="btn btn-outline-primary"
                                 data-mdb-ripple-init>+</button>
                         </div>
-                        <div id="ingredient-select">
+                        <div id="ingredient-select"></div>
 
 
-                        </div>
-
-
+                        <!-- Exclude Ingredients -->
                         <div class="d-flex pb-3 mb-3 link-dark text-decoration-none border-bottom">
                             <h4 class="fs-5 mt-3 fw-semibold">Exclude Ingredients</h4>
                         </div>
@@ -94,18 +88,13 @@
                         <div id="ingredient-exclude">
                         </div>
 
-                        <!--These are the checkboxes-->
-
+                        <!-- Additional Selections -->
                         <div class="d-flex pb-3 mb-3 link-dark text-decoration-none border-bottom">
                             <h3 class="fs-5 mt-3 fw-semibold">Additional Selections</h3>
                         </div>
 
-
-                        <ul class="list-unstyled ps-0">
-
-
-                            <li class="mb-1">
-                                <button
+                        <!-- Cuisines -->
+                        <button
                                     class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
                                     data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false"
                                     id="toggle-arrow">
@@ -154,56 +143,7 @@
                                     </div>
                                 </div>
 
-                                <li class="mb-1">
-                                    <button
-                                        class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                                        data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false"
-                                        id="toggle-arrow">
-                                        <span class="fs-5 mt-3 fw-semibold">Dietary<span class="arrow"></span></span>
-                                    </button>
-                                    <div class="collapse show" id="home-collapse">
-    
-                                        <div class="btn-group-vertical ms-2" role="group"
-                                            aria-label="Vertical radio toggle button group">
-                                            <div class="row mt-3">
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-diet" id="vbtn-radio1"
-                                                        autocomplete="off" checked>
-                                                    <label class="btn btn-outline-primary" for="vbtn-radio1">Any</label>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2"
-                                                        autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-radio2">Indian</label>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-3">
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3"
-                                                        autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-radio3">Italian</label>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio4"
-                                                        autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-radio4">French</label>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-3 mb-3">
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio5"
-                                                        autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-radio5">Greek</label>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio6"
-                                                        autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-radio6">Chinese</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                            <li class="mb-1">
+                                <!-- Intolerances -->
                                 <button
                                     class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
                                     data-bs-toggle="collapse" data-bs-target="#intol-collapse" aria-expanded="false"
@@ -215,12 +155,12 @@
                                         aria-label="Vertical radio toggle button group">
                                         <div class="row mt-3">
                                             <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-intol1"
+                                                <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol1"
                                                     autocomplete="off" checked>
                                                 <label class="btn btn-outline-primary" for="vbtn-intol1">None</label>
                                             </div>
                                             <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-intol2"
+                                                <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol2"
                                                     autocomplete="off">
                                                 <label class="btn btn-outline-primary"
                                                     for="vbtn-intol2">Shellfish</label>
@@ -228,24 +168,24 @@
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-intol3"
+                                                <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol3"
                                                     autocomplete="off">
                                                 <label class="btn btn-outline-primary" for="vbtn-intol3">Wheat</label>
                                             </div>
                                             <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-intol4"
+                                                <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol4"
                                                     autocomplete="off">
                                                 <label class="btn btn-outline-primary" for="vbtn-intol4">Dairy</label>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-intol5"
+                                                <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol5"
                                                     autocomplete="off">
                                                 <label class="btn btn-outline-primary" for="vbtn-intol5">Soy</label>
                                             </div>
                                             <div class="col">
-                                                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-intol6"
+                                                <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol6"
                                                     autocomplete="off">
                                                 <label class="btn btn-outline-primary" for="vbtn-intol6">Sesame</label>
                                             </div>
@@ -253,52 +193,10 @@
                                     </div>
                                 </div>
                             </div>
-                                <li class="mb-1">
-                                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                                        data-bs-toggle="collapse" data-bs-target="#intol-collapse" aria-expanded="false" id="toggle-intol">
-                                        <span class="fs-5 mt-3 fw-semibold">Intolerances<span class="arrow"></span></span>
-                                    </button>
-                                    <div class="collapse show" id="intol-collapse">
-                                        <div class="btn-group-vertical ms-2" role="group" aria-label="Vertical radio toggle button group">
-                                            <div class="row mt-3">
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol1" autocomplete="off" checked>
-                                                    <label class="btn btn-outline-primary" for="vbtn-intol1">None</label>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol2" autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-intol2">Shellfish</label>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-3">
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol3" autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-intol3">Wheat</label>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol4" autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-intol4">Dairy</label>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-3 mb-3">
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol5" autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-intol5">Soy</label>
-                                                </div>
-                                                <div class="col">
-                                                    <input type="radio" class="btn-check" name="vbtn-intol" id="vbtn-intol6" autocomplete="off">
-                                                    <label class="btn btn-outline-primary" for="vbtn-intol6">Sesame</label>
-                                                </div>
 
-                                            </div>
-                                        </div>
-                                    </div>
+                            <!-- Dietary -->
 
-
-                     
-
-                                        <li class="mb-1">
-                                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                            <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
                                                 data-bs-toggle="collapse" data-bs-target="#diet-collapse" aria-expanded="false" id="toggle-diet">
                                                 <span class="fs-5 mt-3 fw-semibold">Dietary<span class="arrow"></span></span>
                                             </button>
@@ -335,112 +233,63 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                    
 
-                                </div>
-                            </li>
-                        </ul>
+                                                <!-- Submit -->
+
+                                                <div class="d-flex pb-3 mb-3 mt-5 link-dark text-decoration-none border-top">
+                                                    <button type="button" id="submit-button" class="btn btn-outline-success mt-3"
+                                                        data-mdb-ripple-init>Submit</button></div>
+                                            </div>
+                </div>
+                
+</div>
+</div>
 
 
-                        <div class="d-flex pb-3 mb-3 mt-5 link-dark text-decoration-none border-top">
-                            <button type="button" id="submit-button" class="btn btn-outline-success mt-3"
-                                data-mdb-ripple-init>Submit</button></div>
-                    </div>
+<!-- Recipe Information -->
+
+<div class="col-md-8 d-flex align-items-center">
+    <div class="card mx-auto" id="recipe-container"></div>
+</div>
+</div>
+</div>
+</div>
 
 
-            </div>
-           
+<!-- <div id="carouselExampleCaptions" class="carousel slide ms-1 col-8" data-bs-ride="carousel" >
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    </div>
+    <div class="carousel-inner" id="recipe-container">
+      <div class="carousel-item active">
+     
         
-        <!-- Recipe Card -->
-        <div id="carouselExampleCaptions" class="carousel slide ms-1 col-8" data-bs-ride="carousel" >
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleCaptions"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>      
             </div>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <h5 class="text-dark">Recipe title</h5>
-                <img src="assets/images/header-alchemy.jpg" class="d-block" alt=""  id="" />
-                <div>Description</div>
-                <p class="text-dark">Ingredients list</p>
-                <div class="text-center bg-danger">
-                  <ul>
-                    <li>1</li>
-                    <li>2</li>
-                  </ul>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <h5 class="text-dark">Recipe title</h5>
-                <img
-                  src="assets/images/header-herbs.jpg"
-                  class="d-block w-50"
-                  alt="..."
-                />
-                <p class="text-dark">
-                  Some representative placeholder content for the third slide.
-                </p>
-                <div class="card" style="width: 18rem">
-                  <img src="..." class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make
-                      up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <h5 class="text-dark">Recipe title</h5>
-                <img
-                  src="assets/images/header-herbs.jpg"
-                  class="d-block w-50"
-                  alt="..."
-                />
-                <p class="text-dark">
-                  Some representative placeholder content for the third slide.
-                </p>
-                <div class="card" style="width: 18rem">
-                  <img src="..." class="card-img-top" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                      Some quick example text to build on the card title and make
-                      up the bulk of the card's content.
-                    </p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button
-              class="carousel-control-prev"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="prev"
-            >
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button
-              class="carousel-control-next"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="next"
-            >
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>     
-    </div>
-    </div>
+            </div> -->
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"
@@ -475,3 +324,4 @@
 </body>
 
 </html>
+        
