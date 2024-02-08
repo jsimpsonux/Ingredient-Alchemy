@@ -11,8 +11,9 @@ $(document).ready(function() {
     //apiKey 7 = 43402bf0e56e46ee954bc7eb44a2de93
     //apiKey 8 = fd6eb66c744d4dfb8507761206a621fd
     //apiKey 9 = f319932461024c23812c1faf2ad4291d
+    //apiKey 10 = 87517ab30c92495f9ac07c62e141b694
     
-    const apiKey = 'f319932461024c23812c1faf2ad4291d'
+    const apiKey = '87517ab30c92495f9ac07c62e141b694'
     
     const ingredientsList = JSON.parse(localStorage.getItem("Ingredients")) || [];
     const excludeIngredients = JSON.parse(localStorage.getItem("Excluded Ingredients")) || [];
